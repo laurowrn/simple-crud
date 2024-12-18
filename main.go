@@ -129,6 +129,6 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"message": "User deleted"})
 	})
 
-	r.Run(fmt.Sprintf(":%s", port)) // Listen and serve on the specified port
+	r.Run(fmt.Sprintf("0.0.0.0:%s", port)) // Listen and serve on the specified port
 }
 
