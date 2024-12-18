@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"net/http"
 	"os"
 
@@ -20,6 +21,12 @@ func main() {
 	dbConnStr := os.Getenv("DB_CONN_STR")
 	if dbConnStr == "" {
 		panic("DB_CONN_STR environment variable is required")
+	}
+
+	// Get port from environment variables
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080" // Default to port 8080 if not specified
 	}
 
 	r := gin.Default()
@@ -122,6 +129,6 @@ func main() {
 		c.JSON(http.StatusOK, gin.H{"message": "User deleted"})
 	})
 
-	r.Run() // Listen and serve on 0.0.0.0:8080
+	r.Run(fmt.Sprintf(":%s", port)) // Listen and serve on the specified port
 }
 
